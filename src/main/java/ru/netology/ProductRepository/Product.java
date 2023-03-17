@@ -1,4 +1,5 @@
 package ru.netology.ProductRepository;
+
 public class Product {
     protected int id;
     protected String productName;
@@ -32,6 +33,7 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setProductName(String productName) {
         this.name = productName;
     }

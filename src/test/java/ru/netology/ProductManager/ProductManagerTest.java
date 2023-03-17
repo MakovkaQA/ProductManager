@@ -52,9 +52,18 @@ public class ProductManagerTest {
     }
 
     @Test
+    public void searchByTextWhenSomeProductsIsFound() {
+
+        Product[] expected = {product2, book1, smartphone1};
+        Product[] actual = manager.searchBy("name");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void searchByTextWhenTextIsNotFound() {
 
-        Product[] expected = {null};
+        Product[] expected = {};
         Product[] actual = manager.searchBy("name6");
 
         Assertions.assertArrayEquals(expected, actual);
