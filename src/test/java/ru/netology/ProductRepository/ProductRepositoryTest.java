@@ -14,6 +14,7 @@ public class ProductRepositoryTest {
 
     Smartphone smartphone1 = new Smartphone(5, "smartphone", "name5", 50_000, "manufacturer1");
     Smartphone smartphone2 = new Smartphone(6, "smartphone", "name6", 40_000, "manufacturer2");
+    Smartphone smartphone3 = new Smartphone(2, "smartphone", "name7", 45_000, "manufacturer1");
 
 
     ProductRepository repo = new ProductRepository();
@@ -33,6 +34,22 @@ public class ProductRepositoryTest {
         Product[] actual = repo.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findProductByIdWhenIdIsFound() {
+        Product[] expected = {smartphone1};
+        Product[] actual = repo.findById(5);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findProductByIdWhenIdIsNotFound() {
+
+        Product[] actual = repo.findById(10);
+
+        Assertions.assertArrayEquals(null, actual);
     }
 
     @Test
@@ -57,6 +74,14 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    public void saveProductWhenIdAlreadyExist() {
+
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
+            repo.save(smartphone3);
+        });
+    }
+
+    @Test
     public void removeByIDWhenIdIsFound() {
         repo.removeById(3);
 
@@ -64,6 +89,14 @@ public class ProductRepositoryTest {
         Product[] actual = repo.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void removeByIDWhenIdIsNotFound() {
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(45);
+        });
     }
 
 
